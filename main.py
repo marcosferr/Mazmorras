@@ -26,6 +26,7 @@ BUTTON_COLOR = (255, 100, 100)
 BUTTON_TEXT_COLOR = (255, 255, 255)
 # Inicializar Pygame
 pygame.init()
+clock = pygame.time.Clock()
 window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Dungeon Generator")
 
@@ -38,6 +39,7 @@ class Room:
         self.h = h
 
     def draw(self):
+        pygame.draw.rect(window, WHITE, ((self.x * TILE_SIZE) - TILE_SIZE, (self.y * TILE_SIZE) - TILE_SIZE , (self.w * (TILE_SIZE) + 2 *TILE_SIZE), (self.h * (TILE_SIZE) + 2 *TILE_SIZE)), 0)
         pygame.draw.rect(window, BLUE, (self.x * TILE_SIZE, self.y * TILE_SIZE, self.w * TILE_SIZE, self.h * TILE_SIZE), 0)
 
     def center(self):
@@ -89,6 +91,8 @@ while True:
     font = pygame.font.Font(None, 36)
     text = font.render('Generate Dungeon', True, BUTTON_TEXT_COLOR)
     window.blit(text, (BUTTON_X + 10, BUTTON_Y + 5))
+    #Limitar FPS a 60 
+    clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
